@@ -1,0 +1,114 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\SpecFlow\\ExcelPlaywright\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{834FC55C-0A9D-4497-9512-F807B1190237}|ExcelPlaywright\\ExcelPlaywright.csproj|d:\\specflow\\excelplaywright\\excelplaywright\\utils\\testutils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{834FC55C-0A9D-4497-9512-F807B1190237}|ExcelPlaywright\\ExcelPlaywright.csproj|solutionrelative:excelplaywright\\utils\\testutils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{834FC55C-0A9D-4497-9512-F807B1190237}|ExcelPlaywright\\ExcelPlaywright.csproj|d:\\specflow\\excelplaywright\\excelplaywright\\basepage\\testbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{834FC55C-0A9D-4497-9512-F807B1190237}|ExcelPlaywright\\ExcelPlaywright.csproj|solutionrelative:excelplaywright\\basepage\\testbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{834FC55C-0A9D-4497-9512-F807B1190237}|ExcelPlaywright\\ExcelPlaywright.csproj|d:\\specflow\\excelplaywright\\excelplaywright\\teststep\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{834FC55C-0A9D-4497-9512-F807B1190237}|ExcelPlaywright\\ExcelPlaywright.csproj|solutionrelative:excelplaywright\\teststep\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{834FC55C-0A9D-4497-9512-F807B1190237}|ExcelPlaywright\\ExcelPlaywright.csproj|d:\\specflow\\excelplaywright\\excelplaywright\\testcase\\userlogintolabs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{834FC55C-0A9D-4497-9512-F807B1190237}|ExcelPlaywright\\ExcelPlaywright.csproj|solutionrelative:excelplaywright\\testcase\\userlogintolabs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 261,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            }
+          ]
+        },
+        {
+          "DockedHeight": 75,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TestUtils.cs",
+              "DocumentMoniker": "D:\\SpecFlow\\ExcelPlaywright\\ExcelPlaywright\\Utils\\TestUtils.cs",
+              "RelativeDocumentMoniker": "ExcelPlaywright\\Utils\\TestUtils.cs",
+              "ToolTip": "D:\\SpecFlow\\ExcelPlaywright\\ExcelPlaywright\\Utils\\TestUtils.cs",
+              "RelativeToolTip": "ExcelPlaywright\\Utils\\TestUtils.cs",
+              "ViewState": "AQIAAFYBAAAAAAAAAAAYwFcBAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-14T09:27:57.353Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Login.cs",
+              "DocumentMoniker": "D:\\SpecFlow\\ExcelPlaywright\\ExcelPlaywright\\TestStep\\Login.cs",
+              "RelativeDocumentMoniker": "ExcelPlaywright\\TestStep\\Login.cs",
+              "ToolTip": "D:\\SpecFlow\\ExcelPlaywright\\ExcelPlaywright\\TestStep\\Login.cs",
+              "RelativeToolTip": "ExcelPlaywright\\TestStep\\Login.cs",
+              "ViewState": "AQIAAEcAAAAAAAAAAAAywFUAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-12T10:22:23.903Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserLoginToLabs.cs",
+              "DocumentMoniker": "D:\\SpecFlow\\ExcelPlaywright\\ExcelPlaywright\\TestCase\\UserLoginToLabs.cs",
+              "RelativeDocumentMoniker": "ExcelPlaywright\\TestCase\\UserLoginToLabs.cs",
+              "ToolTip": "D:\\SpecFlow\\ExcelPlaywright\\ExcelPlaywright\\TestCase\\UserLoginToLabs.cs",
+              "RelativeToolTip": "ExcelPlaywright\\TestCase\\UserLoginToLabs.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAB8AAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-12T10:22:18.953Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TestBase.cs",
+              "DocumentMoniker": "D:\\SpecFlow\\ExcelPlaywright\\ExcelPlaywright\\BasePage\\TestBase.cs",
+              "RelativeDocumentMoniker": "ExcelPlaywright\\BasePage\\TestBase.cs",
+              "ToolTip": "D:\\SpecFlow\\ExcelPlaywright\\ExcelPlaywright\\BasePage\\TestBase.cs",
+              "RelativeToolTip": "ExcelPlaywright\\BasePage\\TestBase.cs",
+              "ViewState": "AQIAAH0AAAAAAAAAAAAUwJAAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-05T12:24:00.882Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
