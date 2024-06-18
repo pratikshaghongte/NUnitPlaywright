@@ -23,7 +23,39 @@ namespace ExcelPlaywright.TestStep
         private string txtSearchUserName = "#txtUserName";
         private string btnSearch = "//span[@id='ctl00_ContentPlaceHolderBody_btnSearch']";
         private string btnPlug = "(//td//a//img)[1]";
-        private string iFrameLogin2 = "//iframe[@name='rwCookieMessage']";
+        private string iFrameLogin2 = "//*[@id='RadWindowWrapper_rwCookieMessage']/table/tbody/tr[2]/td[2]/iframe";
+        //private string overlaySelector = "div.TelerikModalOverlay"; // Add the selector for the overlay
+
+        //public async Task userLogin()
+        //{
+        //    // Wait for and switch to the iframe
+        //    await _testUtils.WaitForSelectorStateAsync(_page, iFrameLogin, ElementState.Visible);
+        //    var frame = await _testUtils.SwitchFrameAsync(iFrameLogin);
+
+        //    // Wait for the button and click it
+        //    await frame.WaitForSelectorAsync(btnIAgree, new FrameWaitForSelectorOptions { State = WaitForSelectorState.Visible });
+        //    await frame.ClickAsync(btnIAgree);
+
+        //    // Switch back to the default frame
+        //    await _testUtils.SwitchToDefaultFrameAsync();
+
+        //    await _testUtils.FillField(txtUserName, USERNAME);
+        //    await _testUtils.FillField(txtPassword, PASSWORD);
+
+        //    // Wait for the overlay to disappear
+        //    await _testUtils.WaitForOverlayToDisappear(overlaySelector);
+
+        //    // Wait for network to be idle before clicking login
+        //    await _testUtils.WaitForNetworkIdleAsync(_page);
+
+        //    // Scroll into view and click using JavaScript
+        //    await _page.EvaluateAsync("document.querySelector('#ctl00_ContentPlaceHolderBody_cmlLogin_LoginButton2').scrollIntoView()");
+        //    await _page.EvaluateAsync("document.querySelector('#ctl00_ContentPlaceHolderBody_cmlLogin_LoginButton2').click()");
+
+        //    // Alternatively, you can use a Playwright click with force option
+        //    // await _page.ClickAsync(btnLogin, new PageClickOptions { Force = true });
+        //}
+
 
         public async Task userLogin()
         {
@@ -43,24 +75,7 @@ namespace ExcelPlaywright.TestStep
 
             // Wait for network to be idle before clicking login
             await _testUtils.WaitForNetworkIdleAsync(_page);
-
             await _testUtils.Click(btnLogin);
-            //// Switch to frame
-            //await _testUtils.WaitForSelectorStateAsync(_page, iFrameLogin, ElementState.Visible);
-
-            //var frameLocator = await _testUtils.SwitchFrameAsync(iFrameLogin);
-
-            //// Wait for the button to be visible and enabled, then click it
-            //await _testUtils.SwitchFrameAsync(iFrameLogin);
-            //await frameLocator.ClickAsync(btnIAgree);
-
-            //// Switch back to the default frame
-            //await _testUtils.SwitchToDefaultFrameAsync();
-            //await _testUtils.WaitForSelectorStateAsync(_page, btnLogin, ElementState.Visible);
-
-            //await _testUtils.FillField(txtUserName, USERNAME);
-            //await _testUtils.FillField(txtPassword, PASSWORD);
-            //await _testUtils.Click(btnLogin);
         }
 
         public async Task NavigateToManageUsers()
@@ -69,21 +84,18 @@ namespace ExcelPlaywright.TestStep
             await _testUtils.Click(subMenuManageUsers);
         }
 
-        public async Task<string> GetUserCanLoginAsVSU()
+        public async Task GetUserCanLoginAsVSU()
         {
             string userName = TestUtils.GetDataByKey("UserName");
             await _testUtils.FillField(txtSearchUserName, userName); // Ensure txtSearchUserName is properly defined and corresponds to the element in your page
-            return userName;
-        }
-        public async Task UserCanAbleToClickOnSearch()
-        {
+                                                                     //return userName;
             await _testUtils.Click(btnSearch);
             await _testUtils.Click(btnPlug);
         }
-
+       
         public async Task IAgreechecked()
         {
-            await _testUtils.SwitchTabAsync(1);
+            _testUtils.SwitchTabAsync(1);
             await _testUtils.WaitForSelectorStateAsync(_page, iFrameLogin2, ElementState.Visible);
             var frame = await _testUtils.SwitchFrameAsync(iFrameLogin2);
 

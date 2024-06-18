@@ -7,14 +7,13 @@ namespace ExcelPlaywright.Utils
 {
     public class TestUtils : TestBase
     {
-        //private readonly IPage _page;
         private IPage _originalPage;
-        //private readonly IBrowser _browser;
-       
-        public TestUtils(IPage page, IBrowser browser)
+        public IPage CurrentPage { get; private set; }
+
+        public TestUtils(IPage page)
         {
             _page = page;
-            //_browser = browser ?? throw new ArgumentNullException(nameof(browser));
+            CurrentPage = page;
         }
 
         //Click
@@ -28,65 +27,22 @@ namespace ExcelPlaywright.Utils
 
         //Fill input fields
         public async Task FillField(string selector, string? value) => await _page.FillAsync(selector, value);
-
-        // Switch to a frame by its selector
+       
         public async Task<IFrame> SwitchFrameAsync(string frameSelector)
         {
+            await _page.WaitForSelectorAsync(frameSelector, new PageWaitForSelectorOptions { State = WaitForSelectorState.Visible });
             var frameElementHandle = await _page.QuerySelectorAsync(frameSelector);
-            if (frameElementHandle != null)
-            {
-                var frame = await frameElementHandle.ContentFrameAsync();
-                if (frame != null)
-                {
-                    return frame;
-                }
-                else
-                {
-                    throw new Exception("Frame not found.");
-                }
-            }
-            else
+            if (frameElementHandle == null)
             {
                 throw new Exception("Frame element not found.");
             }
+            var frame = await frameElementHandle.ContentFrameAsync();
+            if (frame == null)
+            {
+                throw new Exception("Frame not found.");
+            }
+            return frame;
         }
-
-        //public async Task<IFrame> SwitchFrameAsync(string frameSelector)
-        //{
-        //    var elementHandle = await _page.QuerySelectorAsync(frameSelector);
-        //    if (elementHandle == null)
-        //    {
-        //        throw new TimeoutException($"Frame with selector '{frameSelector}' not found.");
-        //    }
-        //    return await elementHandle.ContentFrameAsync();
-        //}
-        //public async Task<IFrame> SwitchFrameAsync(string frameSelector)
-        //{
-        //    Console.WriteLine($"[DEBUG] Attempting to switch to frame with selector: {frameSelector}");
-
-        //    // Wait for the iframe to be present
-        //    await WaitForSelectorStateAsync(_page, frameSelector, ElementState.Visible);
-
-        //    // Query the iframe element
-        //    var elementHandle = await _page.QuerySelectorAsync(frameSelector);
-
-        //    if (elementHandle == null)
-        //    {
-        //        Console.WriteLine($"[ERROR] Frame with selector '{frameSelector}' not found.");
-        //        throw new TimeoutException($"Frame with selector '{frameSelector}' not found.");
-        //    }
-
-        //    var frame = await elementHandle.ContentFrameAsync();
-
-        //    if (frame == null)
-        //    {
-        //        Console.WriteLine($"[ERROR] Unable to switch to frame '{frameSelector}'.");
-        //        throw new TimeoutException($"Unable to switch to frame '{frameSelector}'.");
-        //    }
-
-        //    Console.WriteLine($"[DEBUG] Successfully switched to frame with selector: {frameSelector}");
-        //    return frame;
-        //}
 
         public async Task SwitchToDefaultFrameAsync()
         {
@@ -253,8 +209,8 @@ namespace ExcelPlaywright.Utils
             }
             return null;
         }
-     
-
+      
+        // Wait for selector state
         public async Task WaitForSelectorStateAsync(IPage page, string selector, ElementState state, int timeout = 30000)
         {
             var waitOptions = new PageWaitForSelectorOptions
@@ -276,7 +232,6 @@ namespace ExcelPlaywright.Utils
                 throw new TimeoutException($"Element '{selector}' not found within the specified timeout of {timeout} milliseconds.");
             }
         }
-        
 
         public static void LoadExcelData(string fileName, string sheetName)
         {
@@ -333,35 +288,40 @@ namespace ExcelPlaywright.Utils
                 throw new KeyNotFoundException($"The key '{key}' was not found in the test data.");
             }
         }
-        public async Task SwitchTabAsync(int tab, IPage page)
+     
+        public async Task SwitchTabAsync(int tabIndex)
         {
-            var contexts = _browser.Contexts;
-
-            if (contexts == null || contexts.Count == 0)
+            var context = _browser.Contexts.FirstOrDefault();
+            if (context == null)
             {
                 throw new InvalidOperationException("No browser contexts available.");
             }
 
-            var pages = contexts[0].Pages;
-
-            if (pages == null || pages.Count == 0)
+            var pages = context.Pages;
+            if (tabIndex < 0 || tabIndex >= pages.Count)
             {
-                throw new InvalidOperationException("No pages available in the browser context.");
+                throw new ArgumentOutOfRangeException(nameof(tabIndex), "Invalid tab index.");
             }
 
-            if (tab < 0 || tab >= pages.Count)
-            {
-                throw new ArgumentOutOfRangeException(nameof(tab), "Invalid tab index.");
-            }
-
-            await pages[tab].BringToFrontAsync();
+            _page = pages[tabIndex];
+            await _page.BringToFrontAsync();
         }
+
         public async Task WaitForNetworkIdleAsync(IPage page, int timeout = 60000)
         {
             Console.WriteLine("[DEBUG] Waiting for network to be idle...");
             await page.WaitForLoadStateAsync(LoadState.NetworkIdle, new PageWaitForLoadStateOptions { Timeout = timeout });
             Console.WriteLine("[DEBUG] Network is idle.");
         }
+
+        public async Task WaitForOverlayToDisappear(string overlaySelector)
+        {
+            await _page.WaitForSelectorAsync(overlaySelector, new PageWaitForSelectorOptions
+            {
+                State = WaitForSelectorState.Hidden
+            });
+        }
+
     }
 }
 

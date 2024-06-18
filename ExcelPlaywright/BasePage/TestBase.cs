@@ -31,11 +31,8 @@ namespace ExcelPlaywright
             if (_extent == null)
             {
                 string reportPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
-                Console.WriteLine("Report Path: " + reportPath);
-
                 Directory.CreateDirectory(reportPath);
                 string reportFile = Path.Combine(reportPath, "ExtentReport.html");
-                Console.WriteLine("Report File: " + reportFile);
 
                 var sparkReporter = new ExtentSparkReporter(reportFile);
                 _extent = new ExtentReports();
@@ -45,7 +42,6 @@ namespace ExcelPlaywright
             }
 
             // Browser setup
-
             var configSettings = new configSettings();
             string browserType = configSettings.Browser;
 
@@ -53,13 +49,10 @@ namespace ExcelPlaywright
             BrowserTypeLaunchOptions options = new BrowserTypeLaunchOptions
             {
                 Headless = false,
-                // Args = new[] { "--no-sandbox", "--disable-gpu", "--window-size=1440,900" }
-               // Args = new[] { "--disable-web-security", "--disable-features=IsolateOrigins,site-per-process", "--allow-running-insecure-content" }
-                    Args = new[] { "--disable-web-security", "--disable-features=IsolateOrigins,site-per-process" }
+                Args = new[] { "--disable-web-security", "--disable-features=IsolateOrigins,site-per-process", "--allow-running-insecure-content" }
+               // Args = new[] { "--disable-web-security", "--disable-features=IsolateOrigins,site-per-process" }
             };
 
-
-            _browser = await playwright.Chromium.LaunchAsync(options);
             switch (browserType.ToLower())
             {
                 case "chrome":
@@ -78,11 +71,9 @@ namespace ExcelPlaywright
             var context = await _browser.NewContextAsync();
             _page = await context.NewPageAsync();
 
-            //System Environment setup
-
+            // System Environment setup
             var testFullName = TestContext.CurrentContext.Test.FullName.ToLower();
             systemEnvironment = GetAppSettingJsonData("dynamicevnts").ToLower();
-            Console.WriteLine($"systemEnvironment: {systemEnvironment}");
 
             if (systemEnvironment.Equals("#{enviorment}#"))
             {
@@ -95,7 +86,7 @@ namespace ExcelPlaywright
             }
             else if (testFullName.Contains("cisco_portal") && testFullName.Contains("userstories"))
             {
-                //_page.GotoAsync("https://sit-p.citplatform.com/MITPortal/Login/TestAutomation").Wait();
+                //_page.GotoAsync("").Wait();
             }
             else if (testFullName.Contains("cisco_portal"))
             {
@@ -131,6 +122,16 @@ namespace ExcelPlaywright
         {
             var testName = TestContext.CurrentContext.Test.Name;
             _test = _extent.CreateTest(testName);
+
+            // Retrieve and assign categories
+            var categories = TestContext.CurrentContext.Test.Properties["Category"];
+            if (categories != null)
+            {
+                foreach (string category in categories)
+                {
+                    _test.AssignCategory(category);
+                }
+            }
         }
 
         [OneTimeTearDown]
@@ -182,7 +183,7 @@ namespace ExcelPlaywright
                     logStatus = Status.Fail;
                     _test.Log(logStatus, $"Test ended with {logStatus} - {errorMsg}");
                     _test.Log(logStatus, $"Stacktrace: {stacktrace}");
-                    await AddSuccessScreenshot("FailedTestScreenshot");
+                    await AddScreenshot("FailedTestScreenshot");
                     break;
                 case TestStatus.Inconclusive:
                     logStatus = Status.Warning;
@@ -195,12 +196,12 @@ namespace ExcelPlaywright
                 default:
                     logStatus = Status.Pass;
                     _test.Log(logStatus, "Test ended with success");
-                    await AddSuccessScreenshot("SuccessTestScreenshot");
+                    await AddScreenshot("SuccessTestScreenshot");
                     break;
             }
         }
 
-        public async Task AddSuccessScreenshot(string elementName = null)
+        public async Task AddScreenshot(string elementName = null)
         {
             DateTime time = DateTime.Now;
             string fileName = elementName == null
